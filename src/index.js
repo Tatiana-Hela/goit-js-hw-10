@@ -37,7 +37,9 @@ function renderCounties(countries) {
   } else if (countries.length > 1 && countries.length <= 10) {
     clearRender();
     createMarkupCountry(countries);
+    return;
   } else if (countries.length === 1) {
+    clearRender();
     createMarkupCountryInfo(countries);
   }
 }
