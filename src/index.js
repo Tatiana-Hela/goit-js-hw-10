@@ -2,6 +2,7 @@ import './css/styles.css';
 import { fetchCountries } from './fetchCountries';
 import debounce from 'lodash.debounce';
 import { Notify } from 'notiflix/build/notiflix-aio';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 
 let searchCountry = '';
 const DEBOUNCE_DELAY = 300;
@@ -21,13 +22,14 @@ function searchCountryInfo(event) {
   event.preventDefault();
 
   searchCountry = event.target.value.trim();
-  if (searchCountry === '') {
+  if (!searchCountry) {
     clearRender();
     return;
   }
   fetchCountries(searchCountry)
     .then(countries => renderCounties(countries))
-    .catch(error => Notify.failure('Oops, there is no country with that name'));
+    .catch(error => Notify.failure('Oops, there is no country with that name'))
+    .finally(Loading.dots('Loading...'), Loading.remove());
 }
 
 function renderCounties(countries) {
@@ -46,7 +48,8 @@ function renderCounties(countries) {
 function createMarkupCountry(countries) {
   const markup = countries
     .map(({ name, flags }) => {
-      return `<li class="country-item"><img class='flags' 
+      return `<li class="country-item">
+      <img class="flags" 
       src="${flags.svg}" alt="${name.official}" width="50" height="40">
       <p class="country-name">${name.official}</p></li>`;
     })
