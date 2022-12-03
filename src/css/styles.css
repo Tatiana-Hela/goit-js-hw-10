@@ -18,7 +18,9 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
-
+img {
+  display: block;
+}
 .country-list {
   list-style: none;
 }
@@ -27,7 +29,6 @@ body {
   align-items: center;
 }
 .flags {
-  display: block;
   margin-right: 30px;
 }
 .country-name {
@@ -38,7 +39,6 @@ body {
   align-items: center;
 }
 .country-info-img {
-  display: block;
   margin-right: 30px;
   align-items: center;
 }
